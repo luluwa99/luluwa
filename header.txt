@@ -1,0 +1,100 @@
+
+<div class="container-fluid">
+ <nav class="navbar navbar-expand-md  p-4  navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+       
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+           <li class="navbar-brand" ><img src="assests/Images/logo.jpg" style="width: 100px;height: 50px;"></li>
+            <li class="nav-item">
+              <a class="nav-link  px-3 btn-sm btn btn-outline-danger mx-2 my-1 " href="index.php">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link  px-3 btn-sm btn btn-outline-danger mx-2  my-1" href="talk_to_professional.php">Talk to Professional</a>
+            </li>
+            <li class="nav-item ">
+            <a class="nav-link px-3 btn-sm btn btn-outline-danger mx-2  my-1" href="forum.php">
+              Forum
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link  px-3 btn-sm btn btn-outline-danger mx-2  my-1" href="get_involved.php">Get Involved</a>
+          </li>
+           <li class="nav-item">
+            <a class="nav-link  px-3 btn-sm btn btn-outline-danger mx-2  my-1" href="crime_report.php">Crime Report</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link  px-3 btn-sm btn btn-outline-danger mx-2  my-1" href="contact.php">Contact Us</a>
+          </li>
+		  <li class="nav-item">
+            <a class="nav-link  px-3 btn-sm btn btn-outline-danger mx-2  my-1" href="rssfeed.php">RSS Feed</a>
+          </li>
+		  <li class="nav-item">
+            <a class="nav-link  px-3 btn-sm btn btn-outline-danger mx-2  my-1" href="OtherChairties.php">Our Friends</a>
+          </li>
+          <?php
+
+           if( isset($_SESSION['userData']) and $_SESSION['userData']['type']==='therapist')
+           {
+            ?>
+             <li class="nav-item">
+            <a class="nav-link  px-3 btn-sm btn text-white btn-primary mx-2  my-1" href="therapist.php"><i class="fas fa-wrench" style="font-size: 15px;color:white;padding: 0px;margin: 0px;"></i> Settings</a>
+          </li>
+            <?php
+           }
+          ?>
+          
+         
+           
+          </ul>
+          <div class="social-part">
+            <ul class="navbar-nav">
+              <?php 
+              if(isset($_SESSION['userData']))
+              {
+                   
+                    ?>
+                         <li class="nav-item dropdown dmenu">
+            <a class="nav-link btn btn-lg btn-outline-danger dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+              <?php echo $_SESSION['userData']['first_name'];?>
+            </a>
+            <div class="dropdown-menu sm-menu" style="min-width: 90px!important;">
+              <?php if(isset($_SESSION['userData']) and $_SESSION['userData']['is_admin']==='1'){?>
+                   <a class="nav-link bg-danger my-1 text-white" href="admin_portal.php">Admin Portal</a>
+                <?php
+                
+              }?>
+               <a class="nav-link bg-info text-white" href="user_setting.php">Profile</a>
+              <a class="nav-link" href="app/actions/log_out.php">Log Out</a>
+             
+            </div>
+
+          </li>
+                    <?php
+              }
+              else
+              {
+               ?>
+              <li class="nav-item">
+            <a class="nav-link  px-3  btn btn-danger text-white mx-2" href="sign_up.php">SignUp/LogIn</a>
+          </li>
+          <?php 
+              }
+              ?>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      </div>
+
+  <script >
+    $(document).ready(function(){
+      $(".nav-link").on("click",function(){
+        $(".nav-link").removeClass('active');
+        $(this).addClass("active");
+      });
+    });
+  </script>

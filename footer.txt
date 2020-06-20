@@ -1,0 +1,37 @@
+<footer class="page-footer font-small bg-light pt-4">
+
+
+<style type="text/css">
+  i{
+    font-size: 35px;
+    padding:10px;
+    color:pink;
+  }
+</style>
+  <!-- Footer Elements -->
+  <div class="container-fluid ">
+
+    <!--Grid row-->
+    <center>
+	 <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2020 Copyright:
+    <a class="text-danger" href="https://Champions_Charity/index.php/"> All Champions Ltd.</a>
+  </div>
+  <!-- Copyright -->
+      <p class="text-muted">You can contact us via any of the following Social Media Platforms</p>
+      <h4 class="text-danger">ALL CHAMPIONS CHARITY</h4>
+      <div>
+        <i class="fab fa-facebook"></i>
+        <i class="fab fa-twitter"></i>
+        <i class="fab fa-instagram-square"></i>
+      </div>
+    </center>
+
+  </div>
+  <!-- Footer Elements -->
+
+ 
+
+</footer>
+<!-- Footer -->
+ 

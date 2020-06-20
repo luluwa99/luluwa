@@ -1,0 +1,181 @@
+<?php
+
+require_once("app/actions/therapist_actions.php");
+?>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>
+  Talk to US
+</title>
+
+  <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+ <link rel = "icon" href =  "assests/images/logo.jpg"> 
+</head>
+
+<style>
+  
+
+
+strong img{
+  width: 70px;
+  height: 50px;
+
+}
+
+</style>
+
+<?php include("app/Includes/header.php");?>
+<body>
+
+ <div class="container">
+  <h3>Talk to a <strong class="text-info">Professional<img class="sm" src="assests/Images/help.png"></strong></h3>
+<p>Who will <em class="text-success strong h3">listen</em> and advice you as you need:</p>
+<p>Please fill in this form to have someone <em class="text-success strong h3">contact you</em></p>
+
+  <?php
+     if(isset($_SESSION['booked']))
+{  unset($_SESSION['booked']);
+  ?>
+    <p class="form-control bg-success text-white text-center">Booking Successfull</p>
+  <?php
+}
+    ?>
+      <?php
+     if(isset($_SESSION['Notbooked']))
+{  unset($_SESSION['Notbooked']);
+  ?>
+    <p class="form-control bg-danger text-white text-center">Some error occurred</p>
+  <?php
+}
+    ?>
+
+   <div class="">
+      <section class="card log-in center col-md-6 d-inline-flex m-4"style="width: 500px;" >
+
+        <!-- Default form register -->
+        <form id="myForm2" class=" border border-light p-5" action="#" method="POST">
+
+          <p class="h4 mb-4 text-center text-danger display-4"> <i class="fa fa-phone" aria-hidden="true"></i>  Fill in your details </p>
+
+          <!-- E-mail -->
+         <label for="fname">First Name</label>
+    <input class="form-control mb-4" type="text" id="fname" name="firstname" placeholder="Your firstname..">
+      <label for="fname">Last Name</label>
+    <input class="form-control mb-4" type="text" id="fname" name="firstname" placeholder="Your lastname..">
+
+          <!-- Password -->
+         
+    <label for="Contact">Select method of contact</label>
+    <select class="form-control" id="country" name="country">
+      <option value="Phone">Phone</option>
+      <option value="Text">Text</option>
+      <option value="Video Chat">Chat</option>
+    </select>
+
+     <label for="email"><b>Email</b></label>
+     <input class="form-control" type="text" placeholder="Enter Email" name="email" required>
+
+         <label for="phone">Enter your phone number:</label>
+
+     <input class="form-control" type="tel" id="phone" name="phone" placeholder="Format: 123-456-7890"
+       pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+       required>
+
+        <label for="Date">Select a date to be contacted</label> 
+   
+   
+         <input class="form-control" type="date" id="myDate" value="<?php echo date("Y-m-d");?>">
+		 
+		 <label for="Time">Input a Time to be contacted</label> 
+     
+         <input class="form-control" type="time" id="Time" value="<?php echo date("h:i");?>">
+		 
+		 
+      <button class="form-control btn btn-sm btn-outline-danger my-4 " type="submit" value="Submit">Submit</button>
+         
+        </form>
+
+        <!-- Default form register -->
+
+      </section>
+<?php
+if(isset($_SESSION['userData']))
+{
+if($_SESSION['userData']['type']!=='therapist')
+{
+?>
+      <section class="card log-in col-md-6 d-inline-flex center my-4"style="width: 500px;" >
+
+        <!-- Default form register -->
+        <p class="h4 mb-4 text-center text-success display-4"> <i class="fa fa-user text-warning" aria-hidden="true"></i>  Available Therapists </p>
+
+  <?php 
+  $query="SELECT users_table.first_name,users_table.id, therapist_time.To_Time,therapist_time.From_Time,therapist_time.To_Date,therapist_time.From_Date from users_table INNER join therapist_time on therapist_time.userId=users_table.id where users_table.type='therapist'";
+  $result=mysqli_query($conn,$query);
+  while($row=mysqli_fetch_assoc($result))
+  {
+  ?>
+        <div class="jumbotron bg-muted py-4 d-inline-flex" style="height: 50%px;width: 100%;">
+          <p class="h5"> <i class="fa text-warning fa-user-circle p-0" style="font-size: 30px;" aria-hidden="true"></i><?php echo $row['first_name'];?></p>
+           <div class="current p-0 col-md-12">
+
+  
+     <p class="text-muted d-inline-flex"> Availability:</p>
+     <div class="d-inline-flex">
+       <label >From:<span class=" badge badge-info text-white"><?php echo $row['From_Time']. " ".$row['From_Date'];?></span></label><br>
+       <label>To:<span class=" badge badge-info text-white"><?php echo $row['To_Time']. " ".$row['To_Date'];?></span></label>
+     </div>
+     <?php
+     $query="select * from bookings where therapist_id='".$row['id']."' and user_id='".$_SESSION['userData']['id']."'";
+     $data=mysqli_query($conn,$query); 
+     $count=mysqli_num_rows($data);
+     $book=mysqli_fetch_assoc($data);
+     if($count>0 and $book['response']==="0")
+     {
+      ?>
+       <a class="btn btn-lg text-white btn-warning m-3 disabled" href="app/actions/therapist_actions.php?therapist_id=<?php echo $row['id'];?>">Requested</a>
+      <?php
+     }
+     else if($count>0 and $book['response']==="1")
+     {
+      ?>
+       <a class="btn btn-lg text-white btn-success m-3 disabled" href="app/actions/therapist_actions.php?therapist_id=<?php echo $row['id'];?>">Approved</a>
+      <?php
+     }
+     else
+     {
+      ?>
+       <a class="btn btn-lg text-white btn-danger m-3" href="app/actions/therapist_actions.php?therapist_id=<?php echo $row['id'];?>">Booking Request</a>
+      <?php
+     }
+     ?>
+    
+
+   </div>
+        </div>
+        <?php
+
+}
+?>
+           
+      </section>
+
+      <?php
+    }
+}?>
+      </div>
+ </div>
+
+
+</body>
+</html>
+<?php include("app/Includes/footer.php");?>
+

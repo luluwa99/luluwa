@@ -1,0 +1,230 @@
+<?php
+session_start();
+require(__DIR__."/app/actions/post_action.php");
+
+	
+	?>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Forum</title>
+	
+	
+
+	<!-- All CDN Links -->
+
+<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="app/Includes/ck/ckeditor.js"></script>
+
+ <link rel = "icon" href =  "assests/images/logo.jpg"> 
+
+</head>
+
+<!---Navbar -->
+<?php include("app/Includes/header.php");?>
+<!---Body begins here -->
+<!-- Create post -->
+<body>
+   <div class="container">
+
+   	<!--Check wether replied or not -->
+   <?php
+     if(isset($_SESSION['Yreply']))
+{  unset($_SESSION['Yreply']);
+	?>
+    <p class="form-control bg-success text-white text-center">Reply Submitted</p>
+	<?php
+}
+   	?>
+
+   	  <?php
+     if(isset($_SESSION['Nreply']))
+{  unset($_SESSION['Yreply']);
+	?>
+    <p class="form-control bg-danger text-white text-center">Reply Not Submitted</p>
+	<?php
+}
+   	?>
+
+   		
+   
+
+<!-- Reply on post -->
+
+   	
+   <span class="d-flex">
+   		<button class="btn btn-sm btn-outline-danger btn-lg mx-3 mt-3 see">See All Posts</button>
+   		<?php if(isset($_SESSION['userData']))
+   		{
+   		?>
+    		<button class="btn btn-sm btn-outline-danger btn-lg mx-3  mt-3 create">Create a Post</button>
+    		<?php 
+    	}?>
+    	</span>	
+   		<div class="row creat_post" >
+	    
+	    <div class="col-md-8 col-md-offset-2">
+	        <div class="d-flex ">
+    		<h1 class="d-flex-inline">Create <em class="text-danger">post</em></h1>
+    		<small class=" mt-4 d-flex-inline text-muted">(This will be a public Post)</small>
+    	</div>
+    		<form action="app/actions/post_action.php" method="POST">
+    		    <input type="hidden" value="<?php echo $_SESSION['userData']['id'];?>" name="userId">
+    		   
+    		    
+    		    <div class="form-group">
+    		        <label for="title">Title <span class="require">*</span></label>
+    		        <input type="text" name="title" class="form-control" name="title" />
+    		    </div>
+    		    
+    		    <div class="form-group">
+    		        <label for="description">Description</label>
+    		        <textarea rows="5" id="editor" name="text" class="form-control" name="description" ></textarea>
+    		    </div>
+    		    
+    		    <script>
+    ClassicEditor
+        .create( document.querySelector( '#editor' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+		
+</script>
+
+<!-- create and cancel  on post -->
+
+
+    		    <div class="form-group">
+    		        <p><span class="require">*</span> - required fields</p>
+    		    </div>
+    		    
+    		    <div class="form-group">
+    		        <button type="submit" name="post" class="btn btn-success">
+    		            Create
+    		        </button>
+    		        <a class="btn btn-outline-danger see">
+    		            Cancel
+    		        </a>
+    		    </div>
+    		    
+    		</form>
+		</div>
+		
+	</div>
+	<style type="text/css">
+		.card-body{
+			font-size: 0.9rem;
+		}
+		.card-body h2{
+			font-size: 1.5rem;
+		}
+	</style>
+	<div class="posts">
+		<h2><em>All <strong class="text-danger text-muted">Posts</strong></em></h2>
+<?php
+$row=getPost();
+
+while($data=mysqli_fetch_assoc($row))
+{
+	$countRes=getPostReplyCount($data['post_id']);
+	$countReply=mysqli_fetch_assoc($countRes);
+	$countRes2=getPostLikeCount($data['post_id']);
+	$countLike=mysqli_fetch_assoc($countRes2);
+  if(isset($_SESSION['userData'])){
+	$check=checkPostLikeUser($data['post_id'],$_SESSION['userData']['id']);
+	}
+  
+	?>
+    <div class="card mb-4">
+         
+          <div class="card-body ">
+          	<div class="d-flex">
+          	<span><i class="fas fa-user-circle mr-2" style="font-size:30px;color:red;"></i><em class="text-muted font-weight-bold"><?php echo $data['first_name'];?></em></span>
+            <h2 class=" ml-3 border rounded bg-light border-info  col-md-8"><?php echo $data['title'];?></h2><span class=" col-md-3 "><?php if(isset($_SESSION['userData'])){
+            	?>
+            	<a href="reply.php?like='like'&userId=<?php echo $_SESSION['userData']['id'];?>&id=<?php echo $data['post_id'];?>" class="pull-right btn btn-sm btn-light"> <i class="fa fa-reply"></i> Reply</a>
+
+                   <?php
+                   if($check>0)
+                   {
+                   	?>
+                   	<a href="app/actions/reply_actions.php?like='like'&userId=<?php echo $_SESSION['userData']['id'];?>&id=<?php echo $data['post_id'];?>" class="pull-right disabled btn btn-sm btn-success"> <i class="fa fa-thumbs-up" aria-hidden="true"></i> Liked</a>
+                   	<?php
+                   }
+                   else
+                   {
+                   ?>
+            	<a href="app/actions/reply_actions.php?like='like'&userId=<?php echo $_SESSION['userData']['id'];?>&id=<?php echo $data['post_id'];?>" class="pull-right btn btn-sm btn-light"> <i class="fa fa-thumbs-up" aria-hidden="true"></i> Like</a>
+                     <?php
+                 }?>
+
+            	<?php
+            }
+            	else{
+            		?>
+            		<small class="text-muted">Log in to reply and Like</small>
+            		<?php
+            	}
+            	?>
+            </span>
+
+        </div>
+            <p class="card-text"><?php echo $data['text']?></p>
+            <?php
+              if(isset($_SESSION['userData']))
+              {
+            ?>
+            <a href="reply.php?userId=<?php echo $_SESSION['userData']['id'];?>&id=<?php echo $data['post_id'];?>"  class="btn btn-sm btn-outline-danger">View Replies →</a>
+            <?php
+        }
+        else
+        {
+        	?>
+        	<small class="text-muted">Log in to View Replies</small>
+        	<?php
+        }
+        ?>
+          </div>
+          <div class="card-footer text-muted">
+           <small> Posted on <?php echo $data['date'];?></small>
+           <small class="pull-right"><?php echo $countLike['count'];?> Likes  <i class="fa fa-thumbs-up" aria-hidden="true"></i></small>
+
+          <small class="pull-right"><?php echo $countReply['count'];?> Replies  <i class="fa fa-commenting" aria-hidden="true"></i><span> | </span></small>
+          </div>
+        </div>
+    <hr>
+	<?php
+}
+?>
+</div>
+	<div>
+
+	</div>
+   	
+   </div>
+</body>
+</html>
+ <?php include("app/Includes/footer.php");?>
+
+<script type="text/javascript">
+	 $(".posts").show();
+           $(".creat_post").hide();
+	$(document).ready(function(){
+		$(".see").on('click',function(){
+           $(".posts").show();
+           $(".creat_post").hide();
+		});
+		$(".create").on('click',function(){
+           $(".posts").hide();
+           $(".creat_post").show();
+		});
+		
+	});
+</script>

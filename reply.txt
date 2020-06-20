@@ -1,0 +1,188 @@
+<?php
+session_start();
+include(__DIR__."/app/actions/post_action.php");
+
+if(isset($_GET['id']))
+{
+
+  
+  ?>
+
+  <!DOCTYPE html>
+<html>
+<head>
+  <title>Reply</title>
+  <!-- ICON -->
+ <link rel = "icon" href =  "assests/images/logo.jpg"> 
+
+  <!-- All CDN Links -->
+
+<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="app/Includes/ck/ckeditor.js"></script>
+
+
+
+</head>
+
+<!---Navbar -->
+<?php include("app/Includes/header.php");?>
+<!---Body begins here -->
+
+<body>
+   <div class="container">
+   <span class="d-flex">
+      <a class="btn btn-sm btn-outline-danger btn-lg mx-3 mt-3 reply">Reply</a>
+      
+        <a class="btn btn-sm btn-outline-danger btn-lg mx-3  mt-3 replies">View Replies</a>
+        
+
+      </span> 
+
+
+  <div class="posts">
+    <h2><em>Reply to this <strong class="text-danger text-muted">Posts</strong></em></h2>
+<?php
+$row=getSinglePost($_GET['id']);
+
+while($data=mysqli_fetch_assoc($row))
+{
+  ?>
+    <div class="card mb-4 border border-danger ">
+         
+          <div class="card-body ">
+            <div class="d-flex">
+            <span><i class="fas fa-user-circle mr-2" style="font-size:30px;color:red;"></i><em class="text-muted font-weight-bold"><?php echo $data['first_name'];?></em></span>
+            <h2 class=" ml-3 border rounded bg-light border-info  col-md-8"><?php echo $data['title'];?></h2>
+        </div>
+            <p class="card-text"><?php echo $data['text']?></p>
+            
+          </div>
+          <div class="card-footer text-muted">
+           <small> Posted on <?php echo $data['date'];?></small>
+          
+          </div>
+        </div>
+    <hr>
+  <?php
+}
+?>
+</div>
+
+      <div class="row post_reply" >
+      
+      <div class="col-md-8 col-md-offset-2">
+          <div class="d-flex ">
+       
+        <small class=" mt-4 d-flex-inline text-muted">(Reply to this Post)</small>
+      </div>
+        <form action="app/actions/reply_actions.php" method="POST">
+            <input type="hidden" value="<?php echo $_SESSION['userData']['id'];?>" name="fromUserId">
+            <input type="hidden" value="<?php echo $_GET['userId'];?>" name="toUserId">
+             <input type="hidden" value="<?php echo $_GET['id'];?>" name="replyToPost">
+            
+            <div class="form-group">
+                <label for="description">Enter Your Reply</label>
+                <textarea rows="5" id="editor" name="text" class="form-control" name="description" ></textarea>
+            </div>
+            
+            <script>
+    ClassicEditor
+        .create( document.querySelector( '#editor' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
+            
+            <div class="form-group">
+                <button type="submit" name="reply" class="btn btn-success">
+                   Reply
+                </button>
+                <a href="forum.php" class="btn btn-outline-danger ">
+                    Cancel
+                </a>
+            </div>
+            
+        </form>
+    </div>
+
+
+    
+  </div>
+  <style type="text/css">
+    .card-body{
+      font-size: 0.9rem;
+    }
+    .card-body h2{
+      font-size: 1.5rem;
+    }
+  </style>
+
+  <div>
+
+  </div>
+
+<div class="toReplies">
+    <?php
+$row=getPostReply($_GET['id']);
+
+while($data=mysqli_fetch_assoc($row))
+{
+  ?>
+    <div class="card mb-4" >
+         
+          <div class="card-body ">
+            <div class="d-flex">
+            <span><i class="fas fa-user-circle mr-2" style="font-size:30px;color:red;"></i><em class="text-muted font-weight-bold"><?php echo $data['first_name'];?></em></span>
+        </div>
+            <p class="card-text"><?php echo $data['text']?></p>
+            
+          </div>
+          <div class="card-footer text-muted">
+           <small> Posted on <?php echo $data['date'];?></small>
+          </div>
+        </div>
+    <hr>
+  <?php
+}
+?>
+    </div>
+   </div>
+</body>
+</html>
+ <?php include("app/Includes/footer.php");?>
+
+  <?php
+}
+else
+{
+  header("location:forum.php");
+}
+
+	?>
+
+
+
+
+ 
+<script type="text/javascript">
+	 
+	$(document).ready(function(){
+     $(".post_reply").show();
+           $(".toReplies").hide();
+		$(".reply").on('click',function(){
+           $(".post_reply").show();
+           $(".toReplies").hide();
+		});
+		$(".replies").on('click',function(){
+           $(".post_reply").hide();
+           $(".toReplies").show();
+		});
+		
+	});
+</script> 

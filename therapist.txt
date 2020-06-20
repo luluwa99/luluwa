@@ -1,0 +1,281 @@
+<?php
+require_once("app/actions/therapist_actions.php");
+
+
+	
+	?>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Therapists Settings</title>
+
+
+	<!-- All CDN Links -->
+
+<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+ <link rel = "icon" href =  "assests/images/logo.jpg"> 
+
+<style type="text/css">
+ body {
+  margin: 0;
+  padding: 0;
+}
+
+.row .btn {
+  cursor: pointer;
+  position: relative;
+  
+  background: white;
+  font-size: 20px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  transition: all 1s;
+}
+.row .btn:after, .row .btn:before {
+  content: " ";
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  border: 0px solid #fff;
+  transition: all 1s;
+}
+.row .btn:after {
+  top: -1px;
+  left: -1px;
+  border-top: 1px solid #77d0e0;
+  border-left: 1px solid #77d0e0;
+}
+.row .btn:before {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 1px solid #77d0e0;
+  border-right: 1px solid #77d0e0;
+}
+.row .btn:hover {
+  border-top-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+.row .btn:hover:before, .row .btn:hover:after {
+  width: 100%;
+  height: 100%;
+}
+
+.data-container {
+  background: #ffebee;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>
+
+
+</head>
+
+<!---Navbar -->
+<?php include("app/Includes/header.php");?>
+<!---Body begins here -->
+
+
+
+   <div class="container">
+  <h1 class="text-success">Welcome Therapist <i style="color:red;font-size: 50px;" class="fas fa-user-nurse"></i></h1>
+<?php
+
+$query="SELECT  * from bookings where therapist_id='".$_SESSION['userData']['id']."'";
+$result=mysqli_query($conn,$query);
+$countRows=mysqli_num_rows($result);
+$flag=true;
+while($row=mysqli_fetch_assoc($result))
+{
+  if($row['status']==="0")
+  {
+    $flag=false;
+  }
+}
+?>
+   <div class="row col-md-12 m-4">
+     <button class="shadow-sm p-3 mb-5 bg-white rounded btn  col-md-5 mx-2 button1">Availability</button>
+     <?php
+
+     if($flag)
+     {
+     ?>
+      <button class="shadow-sm p-3 mb-5 bg-white rounded btn col-md-5 mx-2 button2">Asked For <span class="badge rounded-circle badge-light"><?php echo $countRows;?></span></button>
+      <?php
+    }else
+    {?>
+       <button class="shadow-sm p-3 mb-5 bg-danger text-white rounded btn col-md-5 mx-2 button2">Asked For <span class="badge rounded-circle badge-light"><?php echo $countRows;?></span></button>
+      <?php
+    }?>
+   </div>
+<?php
+  $query="update bookings set status='1' where therapist_id='".$_SESSION['userData']['id']."'";
+$result=mysqli_query($conn,$query);
+
+?>
+   <?php
+   if(isset($_SESSION['updated']))
+   {
+    unset($_SESSION['updated']);
+    ?>
+     <p class="form-control bg-success text-white text-center">Time Updated Successfully</p>
+    <?php
+   }
+   ?>
+   <?php
+   if(isset($_SESSION['Notupdated']))
+   {
+    unset($_SESSION['Notupdated']);
+    ?>
+     <p class="form-control bg-dangertext-white text-center">Some error occured</p>
+    <?php
+   }
+   ?>
+
+   <?php
+   if(isset($_SESSION['response']))
+   {
+    unset($_SESSION['response']);
+    ?>
+     <p class="form-control bg-success text-white text-center">Response Successfull</p>
+    <?php
+   }
+   ?>
+   <?php
+   if(isset($_SESSION['Noresponse']))
+   {
+    unset($_SESSION['Noresponse']);
+    ?>
+     <p class="form-control bg-dangertext-white text-center">Some error occured</p>
+    <?php
+   }
+   ?>
+
+
+<div class="section1">
+   <div class="current  col-md-12">
+
+    <?php
+$res=getTime($_SESSION['userData']['id']);
+
+    ?>
+     <p class="text-muted">Your Current Availability:</p>
+     <div>
+       <label>From:<span class=" badge badge-info text-white"><?php echo $res['From_Time']. " ".$res['From_Date'];?></span></label><br>
+       <label>To:<span class=" badge badge-info text-white"><?php echo $res['To_Time']. " ".$res['To_Date'];?></span></label>
+     </div>
+
+   </div>
+   <!--Here is datetime picker -->
+
+<div class="center">
+  <form id="myForm" class="form col-md-8 m-4" method="POST" action="app/actions/therapist_actions.php" >
+    
+    <div class="form-group d-flex">
+      <label class="label mx-2">From Date:</label>
+    <input class="form-control" type="date" min="<script></script>" name="from_date">
+     <label class="label mx-2">From Time:</label>
+    <input class="form-control" type="time" name="from_time">
+    </div>
+    <div class="form-group d-flex">
+      <label class="label mx-2">To Date:</label>
+    <input class="form-control" type="date" name="to_date">
+    <label class="label mx-2">To Time:</label>
+    <input class="form-control" type="time" name="to_time">
+  </div>
+  <input type="submit" name="timeChange" value="Change" class="btn btn-outline-danger form-control">
+  </form>
+</div>
+</div>
+
+<!--Here is datetime picker ends-->
+
+
+
+
+<!--- Here starts the ASKED FOR SECTION -->
+
+<?php
+$query="SELECT  * from bookings where therapist_id='".$_SESSION['userData']['id']."'";
+$result=mysqli_query($conn,$query);
+$countRows=mysqli_num_rows($result);
+if($countRows>0)
+{
+  while($row=mysqli_fetch_assoc($result))
+  {
+    $data=getBookedUser($row['user_id']);
+
+?>
+<div class="section2">
+<div class="card text-center">
+  <div class="card-header">
+    User Asked For you
+  </div>
+  <div class="card-body">
+    <h5 class="card-title"><?php echo  $data['first_name']?></h5>
+    <p class="card-text"><?php echo $data['type'];?></p>
+    <a href="app/actions/therapist_actions.php?response_id=<?php echo $data['id'];?>" class="btn btn-primary">Respond</a>
+     <a href="app/actions/therapist_actions.php?delete_response_id=<?php echo $data['id'];?>" class="btn btn-danger">Cancel</a>
+  </div>
+  <div class="card-footer text-muted">
+    Contact: <?php echo $data['phone_number'];?>
+  </div>
+</div>
+</div>
+<!--- Here Ends the ASKED FOR SECTION -->
+
+<?php
+}
+}
+?>
+</div>
+</body>
+</html>
+ <?php include("app/Includes/footer.php");?>
+<script type="text/javascript">
+  
+  $(document).ready(function(){
+   
+
+   //this part of code will run on Load
+   var today = new Date().toISOString().split('T')[0];
+   document.getElementsByName("from_date")[0].setAttribute('min', today);
+   document.getElementsByName("to_date")[0].setAttribute('min', today);
+   $(".section1").show();
+      $(".section2").hide();
+
+
+//this part of code will run on click;
+    $(".button1").on('click',function(){
+      $(".section1").show();
+      $(".section2").hide();
+    });
+     $(".button2").on('click',function(){
+       $(".section1").hide();
+      $(".section2").show();
+
+    });
+
+     $("#myForm").on("submit",function(event){
+     var to_date=document.getElementsByName("to_date")[0].value;
+     var to_time=document.getElementsByName("to_time")[0].value;
+     var from_date=document.getElementsByName("from_date")[0].value;
+     var from_time=document.getElementsByName("from_time")[0].value;
+
+     if(to_time=="" || to_date=="" || from_time=="" || from_date=="")
+     {
+      event.preventDefault();
+      alert("Some Field missing");
+     }
+     });
+  });
+
+</script>

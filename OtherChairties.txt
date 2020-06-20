@@ -1,0 +1,141 @@
+<?php
+session_start();
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+      <link rel = "icon" href =  "assests/images/logo.jpg"> 
+    <title> Other Chairties </title>
+
+
+   
+	
+  <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+</head>
+
+<?php include("app/Includes/header.php");?>
+<body>
+
+<div class="container">
+<h3>Links to other chairites<img class="sm" ></strong></h3>
+   <side>
+  <div class="container">
+<div class="d-flex col-md-12  flex-wrap">
+    
+  
+    <section class="col-md-4  ">
+           <a  href="http://www.benkinsella.org.uk/" target="blank"><img src="assests/images/bklogo.jpg"  width="450" height="300"  alt="The Ben Kinsela trust"></a>
+            <h4>The Ben Kinsella Trust</h4>
+            <p>We offer <strong>specialized</strong> support for youth's.</p>
+            <p>
+                <div><span class="text-dark">Tel:</span> <span><a href="tel:123-456-7890">07123 456789</span></div>
+                <div><span class="text-dark">Email:</span> <span><a href="mailto:admin@benkinsella.org.uk">admin@benkinsella.org.uk</a></span></div>
+                <div><span class="text-dark">Twitter:</span> <span><a href="https://twitter.com/kinsellatrust?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @kinsellatrus</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></span></div>
+                <div><span class="text-dark">Facebook:</span>
+                <span><div class="fb-share-button" data-href="https://www.facebook.com/kinsellatrust/" data-layout="button" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.facebook.com%2Fkinsellatrust%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div></span></div>
+            </p>
+            <hr>
+      </section>
+    
+
+
+
+
+       <section class="col-md-4 ">
+            <a  href="https://www.knifefree.co.uk/" target="blank"><img class="align-self-top" src="assests/images/kflogo.jpg" width="450" height="300" alt="sample image"></a>
+                  <h4>Knife Free</h4>
+            <p>Join the <strong>millions</strong> of young people living knife free</p>
+            <p>
+                <div><span class="text-dark">Tel:</span> <span><a href="tel:123-456-7890">07123 456789</span></div>
+                <div><span class="text-dark">Email:</span> <span><a href="mailto:secretary@knifefree.co.uk">secretary@knifefree.co.uk</a></span></div>
+                <div><span class="text-dark">Twitter:</span> <span><em>Not applicable</em></span></div>
+                <div><span class="text-dark">Facebook:</span>
+                <span><a target="_blank" href="https://www.facebook.com/knifefree/">Follow on Facebook</a></span></div>
+            </p>
+            <hr>
+      </section>
+
+
+
+     <section class="col-md-4 ">
+           <a  href="https://www.allchampioncharity.org/" target="blank"><img src="assests/images/logo.jpg" width="450" height="300" alt="All Champions Charity"></a>
+                  <h4>All Champions Charity</h4>
+            <p>Tackling Knife Crime in London</p>
+            <p >
+                <div><span class="text-dark">Tel:</span> <span><a href="tel:123-456-7890">07123 456789</span></div>
+                 <div><span class="text-dark">Email:</span> <span><a href="mailto:championscharity2019@gmail.com">championscharity2019@gmail.com</a></span></div>
+                <div><span class="text-dark">Twitter:</span> <span><a href="https://twitter.com/AllChampionsOrg?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @AllChampionsOrg</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></span></div>
+                <div><span class="text-dark">Facebook:</span>
+                <span><div class="fb-share-button" data-href="https://www.facebook.com/All-champion-charity-117083049668102/" data-layout="button" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.facebook.com%2FAll-champion-charity-117083049668102%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div></span></div>
+            </p> 
+            <hr>
+      </section>
+
+
+      <section class="col-md-4 ">
+           <a  href="http://www.knifecrimes.org/" target="blank"><img src="assests/images/kc.jpg" width="450" height="300" alt="Knife Crimes Online Resource"></a>
+                  <h4>Knife Crimes </h4>
+            <p>Knife Crime Online Resource. Look at knife crime through the eyes of the victims their relatives and also experts.</p>
+            <p >
+                <div><span class="text-dark">Tel:</span> <span><a href="tel:123-456-7890">07123 456789</span></div>
+                <div><span class="text-dark">Email:</span> <span><a href="mailto:mediaofficer@knifecrimes.org">mediaofficer@knifecrimes.org</a></span></div>
+                <div><span class="text-dark">Twitter:</span> <span><a href="https://twitter.com/KnifeCrimesOrg?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @KnifeCrimesOrg</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></span></div>
+                <div><span class="text-dark">Facebook:</span>
+                <span><div class="fb-share-button" data-href="https://www.facebook.com/pg/KnifeCrimes.Org/about/?ref=page_internal" data-layout="button" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.facebook.com%2Fpg%2FKnifeCrimes.Org%2Fabout%2F%3Fref%3Dpage_internal&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div></span></div>
+            </p> 
+            <hr>
+      </section>     
+
+
+
+      <section class="col-md-4 ">
+           <a  href="https://www.safe4me.co.uk/" target="blank"><img src="assests/images/s4m.jpg"  width="450" height="300" alt="Safe 4 Me"></a>
+                  <h4>Safe 4 Me</h4>
+            <p>Knife Crime Online Resource</p>
+            <p>This site provides teachers, professionals and parents with information and resources to help educate young people about keeping safe and making responsible choices. </p>
+            <p>
+                <div><span class="text-dark">Tel:</span> <span><a href="tel:123-456-7890">07123 456789</span></div>
+                <div><span class="text-dark">Email:</span> <span><a href="mailto:media@safe4me.co.uk">media@safe4me.co.uk</a></span></div>
+                <div><span class="text-dark">Twitter:</span> <span><em>Not applicable</em></span></div>
+                <div><span class="text-dark">Facebook:</span>
+                <span><a href="http://www.facebook.com">http://www.facebook.com/ewew</a></span></div>
+            </p> 
+            <hr>
+      </section> 
+
+
+
+     <section class="col-md-4 ">
+           <a  href="https://www.steelwarriors.co.uk/" target="blank"><img src="assests/images/sw.jpg"  width="450" height="300" alt="Steel Warriors"></a>
+                  <h4>Safe 4 Me</h4>
+            <p>Steel Warriors</p>
+            <p>Steel Warriors is a charity dedicated to reducing the number of young people carrying knives in the UK.</p>
+            <p>
+                <div><span class="text-dark">Tel:</span> <span><a href="tel:123-456-7890">07123 456789</span></div>
+                <div><span class="text-dark">Email:</span> <span><a href="mailto:mediaofficer@knifecrimes.org">admin@steelwarriors.co.uk</a></span></div>
+                <div><span class="text-dark">Twitter:</span> <span><a href="https://twitter.com/steelwarriorsuk?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @steelwarriorsuk</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></span></div>
+                <div><span class="text-dark">Facebook:</span>
+                <span><a href="http://www.facebook.com">http://www.facebook.com/sws</a></span></div>
+            </p> 
+            <hr>
+      </section>     
+
+</div>
+</div>
+
+
+</a></span></div>
+</body>
+</html>
+
+ <?php include("app/Includes/footer.php");?>
